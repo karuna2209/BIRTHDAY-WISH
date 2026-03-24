@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suraj Ji | My World 💙</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Dancing+Script:wght@700&family=Poppins:wght@600;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(-45deg, #e0c3fc, #8ec5fc, #fbc2eb);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            height: 100vh; overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        @keyframes gradientBG { 0% {background-position:0% 50%} 50% {background-position:100% 50%} 100% {background-position:0% 50%} }
+
+        /* ✨ FLOATING PARTICLES */
+        .magic { position: fixed; pointer-events: none; z-index: 1; animation: floatUp 5s linear infinite; opacity: 0; }
+        @keyframes floatUp { 0% {transform:translateY(110vh) scale(0.5); opacity:0} 50% {opacity:0.8} 100% {transform:translateY(-10vh) scale(1.2); opacity:0} }
+
+        /* 🏠 MAIN CARD */
+        .glass-card {
+            width: 90%; max-width: 500px; height: 80vh;
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(20px);
+            border-radius: 50px; border: 4px solid #fff;
+            padding: 30px; display: none; flex-direction: column; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); z-index: 100;
+        }
+        .active { display: flex; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from {opacity:0; transform:scale(0.9)} to {opacity:1; transform:scale(1)} }
+
+        /* 🔥 LOUD NEON HEADINGS */
+        h1 {
+            font-family: 'Archivo Black', sans-serif; font-size: 2.5rem;
+            color: #fff; text-shadow: 0 0 20px #ff00de, 0 0 40px #ff00de;
+            margin-bottom: 20px; text-transform: uppercase;
+        }
+
+        /* 📝 TYPING TEXT AREA */
+        .type-wrap {
+            flex-grow: 1; font-family: 'Dancing Script', cursive;
+            font-size: 2rem; font-weight: 700; color: #1e1b4b;
+            overflow-y: auto; padding: 10px; line-height: 1.4;
+        }
+
+        /* 🔘 GLOWING POP-UP BUTTONS */
+        .pop-btn {
+            background: #ff00de; color: #fff; border: none; padding: 15px;
+            border-radius: 20px; font-weight: 900; cursor: pointer;
+            margin: 10px 0; font-size: 1.1rem; box-shadow: 0 0 15px #ff00de;
+            display: none; /* Only shows when typing is done */
+        }
+
+        /* 📽️ OVERLAY POP-UP */
+        #popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95); z-index: 1000;
+            display: none; flex-direction: column; padding: 40px 20px;
+        }
+
+        .btn-next {
+            background: #fff; color: #1e1b4b; border: 2px solid #1e1b4b;
+            padding: 15px; border-radius: 50px; font-weight: 900;
+            cursor: pointer; margin-top: 20px;
+        }
+
+        /* 🚪 ENTRY GATE */
+        #gate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff; z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+        .heart-trigger { font-size: 9rem; cursor: pointer; animation: beat 1s infinite; }
+        @keyframes beat { 0%, 100% {transform:scale(1)} 50% {transform:scale(1.1)} }
+    </style>
+</head>
+<body>
+
+    <div id="gate" onclick="init()">
+        <div class="heart-trigger">💙</div>
+        <h1 style="color:#ff00de; text-shadow:none;">FOR SURAJ JI</h1>
+        <p style="font-weight:900;">TAP TO FEEL THE MAGIC 👆</p>
+    </div>
+
+    <audio id="piano" loop><source src="https://www.chosic.com/wp-content/uploads/2021/11/A-Quiet-Thought-Romantic-Piano-Melody.mp3" type="audio/mpeg"></audio>
+
+    <div class="glass-card active" id="p1">
+        <h1 style="text-shadow: 0 0 20px #00d4ff;">Wait!</h1>
+        <div class="type-wrap"><span id="t1"></span></div>
+        <button class="btn-next" id="b1" onclick="showPage(2)" style="display:none;">Next ➔</button>
+    </div>
+
+    <div class="glass-card" id="p2">
+        <h1 style="text-shadow: 0 0 20px #ffd700;">Birthday</h1>
+        <div class="type-wrap"><span id="t2"></span></div>
+        <button class="pop-btn" id="b2" onclick="openPop('pop1')">READ MY WISHES 💌</button>
+    </div>
+
+    <div class="glass-card" id="p3">
+        <h1 style="text-shadow: 0 0 20px #ff4d00;">9th Nov</h1>
+        <div class="type-wrap"><span id="t3"></span></div>
+        <button class="pop-btn" id="b3" onclick="openPop('pop2')">OUR STORY 📖</button>
+    </div>
+
+    <div class="glass-card" id="p4">
+        <h1 style="text-shadow: 0 0 20px #bc00ff;">Dreams</h1>
+        <div class="type-wrap"><span id="t4"></span></div>
+        <button class="pop-btn" id="b4" onclick="openPop('pop3')">BOWLER & DOCTOR 🏏</button>
+    </div>
+
+    <div class="glass-card" id="p5">
+        <h1 style="text-shadow: 0 0 20px #ff00de;">Always</h1>
+        <div class="type-wrap"><span id="t5"></span></div>
+        <div style="font-family:'Archivo Black'; font-size: 2.2rem; color: #ff00de; margin-top: 10px;">Iraaya & Ivaan 💙</div>
+    </div>
+
+    <div id="popup-overlay">
+        <h1 id="pop-title"></h1>
+        <div class="type-wrap" style="color:#1e1b4b; font-size: 2.2rem;"><span id="pop-text"></span></div>
+        <button class="btn-next" id="pop-close" onclick="closePop()">CONTINUE ➔</button>
+    </div>
+
+<script>
+    const song = document.getElementById('piano');
+    let currentPopId = "";
+
+    function init() {
+        document.getElementById('gate').style.display = 'none';
+        song.play();
+        setInterval(spawnMagic, 400);
+        typeEffect('t1', messages.p1, 'b1');
+    }
+
+    function spawnMagic() {
+        const m = document.createElement('div');
+        m.className = 'magic';
+        m.innerHTML = ['💙','✨','🌸'][Math.floor(Math.random()*3)];
+        m.style.left = Math.random()*100+'vw';
+        m.style.fontSize = Math.random()*20+20+'px';
+        document.body.appendChild(m);
+        setTimeout(() => m.remove(), 5000);
+    }
+
+    const messages = {
+        p1: "Before you go ahead… bas ek second ke liye ruk jaaiye… kyunki jo aap dekhne wale ho na… wo sirf ek simple sa message nahi hai… 💙",
+        p2: "Aaj ka din sirf ek normal din nahi hai… yeh woh din hai jab ek bahut hi special insaan is duniya me aaya tha… ✨",
+        p3: "9 November 2025… woh din tha jab aap meri life me aaye… Pehle sab normal tha… thoda sa dull… lekin aap aaye… aur sab kuch itna bright ho gaya… 💙",
+        p4: "🏏 Main dil se yeh hope karti hoon ki ek din aap ek bahut ache bowler banein… aur main aapka support banoon… 👩‍⚕️",
+        p5: "Suraj ji… 💙 I love you… 🥺 Aap sirf meri life ka part nahi ho… aap meri life ho 💙 Happy Birthday to the best dad 🎂💙",
+        
+        pop1: "🎂 Happy Birthday Suraj ji 💙 Aap sirf special nahi ho… aap meri life ka woh hissa ho jo kabhi replace nahi ho sakta… Aap meri aadat ho… meri smile ho… jab sab kuch theek nahi hota, tab bhi aap ka khayal sab kuch thoda better bana deta hai… Sach kahun toh… aap mere liye sirf “koi” nahi ho… aap mere liye mera sab kuch ho… mera forever ho ♾️",
+        pop2: "Aap aaye zindagi me jaise roshni ka noor ho, har andhera khatam ho gaya… jaise aap hi mera sukoon ho… na jaane kaise itni si zindagi me itni si khushi aa gayi… shayad isliye kyunki aap mere ho… aur main aapki ho 💙 Main dil se pray karti hoon ki Kanha ji hamesha aapke saath rahein… har mushkil me aapka haath pakdein… 🙏",
+        pop3: "🏏 Main dil se yeh hope karti hoon ki ek din aap ek bahut ache bowler banein… balki best banein… Aapka naam ho… log aapko dekhein aur proud feel karein ✨ Aur main… hamesha side me khadi rahoon… aapko support karti hui… 👩‍⚕️ Hum dono apni life me grow karenge… saath me struggle karenge… aur saath me hi success celebrate karenge 💙 Aur phir… ek chhoti si duniya hogi humari… jisme Iraaya aur Ivaan honge 🥺✨",
+        pop4: "🌸 Suraj ji ki mummy ji ko… 💙 Dil se thank you… itne pyaare aur special insaan ko duniya me lane ke liye… Wo meri life ka sabse beautiful part ban chuka hai ✨ Suraj ji meri life me bilkul apne naam ki tarah aaye… jaise suraj aata hai aur andhera khatam kar deta hai ☀️"
+    };
+
+    function typeEffect(id, text, btnId) {
+        new Typed('#'+id, {
+            strings: [text],
+            typeSpeed: 40,
+            showCursor: false,
+            onComplete: () => { if(btnId) document.getElementById(btnId).style.display = 'block'; }
+        });
+    }
+
+    function showPage(num) {
+        document.querySelectorAll('.glass-card').forEach(c => c.classList.remove('active'));
+        document.getElementById('p'+num).classList.add('active');
+        typeEffect('t'+num, messages['p'+num], 'b'+num);
+    }
+
+    function openPop(key) {
+        currentPopId = key;
+        const overlay = document.getElementById('popup-overlay');
+        overlay.style.display = 'flex';
+        document.getElementById('pop-text').innerHTML = "";
+        typeEffect('pop-text', messages[key], 'pop-close');
+    }
+
+    function closePop() {
+        document.getElementById('popup-overlay').style.display = 'none';
+        if(currentPopId === 'pop1') showPage(3);
+        else if(currentPopId === 'pop2') showPage(4);
+        else if(currentPopId === 'pop3') openPop('pop4');
+        else if(currentPopId === 'pop4') showPage(5);
+    }
+</script>
+</body>
+</html>
